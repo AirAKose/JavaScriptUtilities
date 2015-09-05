@@ -1,3 +1,9 @@
+/**************************************
+	Color Picker Utility
+Created By:	Erekose Craft
+Website:	airakose.com
+This software is free for use and distribution as long as this statement remains unaltered within the source.
+**************************************/
 var Utility	= Utility || {};
 
 Utility.stretchLinear	= function(arr,min,max)
@@ -47,9 +53,13 @@ Utility.ColorHSV.prototype.toRGB	= function()
 {
 	return this.getRGB(this.h,this.s,this.v);
 }
-Utility.ColorHSV.prototype.getCleanRGB	= function()
+Utility.ColorHSV.prototype.toCleanRGB	= function()
 {
 	return this.getRGB(this.h,1,1);
+}
+Utility.ColorHSV.prototype.toString	= function()
+{
+	return "hsv("+this.h+","+this.s+","+this.v+")";
 }
 
 
@@ -59,14 +69,14 @@ Utility.ColorRGB=function(r,g,b)
 	this.g=g?g:0;
 	this.b=b?b:0;
 }
-Utility.ColorRGB.prototype.getMaxSaturation	= function()
+Utility.ColorRGB.prototype.toMaxSaturation	= function()
 {
 	var col = Utility.stretchLinear([this.r,this.g,this.b],0,255);
 	return new Utility.ColorRGB(col[0],col[1],col[2]);
 }
 Utility.ColorRGB.prototype.getHSV	= function(r,g,b)
 {
-	var col = this.getMaxSaturation();
+	var col = this.toMaxSaturation();
 	var hue = 0;
 	if(col.r!=0)
 	{
@@ -110,6 +120,10 @@ Utility.ColorRGB.prototype.toHexString	= function()
 {
 	return this.getHexString(this.r,this.g,this.b);
 }
+Utility.ColorRGB.prototype.toString	= function()
+{
+	return "rgb("+this.r+","+this.g+","+this.b+")";
+}
 Utility.ColorRGB.prototype.invert		= function()
 {
 	return new Utility.ColorRGB(255-this.r,255-this.g,255-this.b);
@@ -118,7 +132,7 @@ Utility.ColorRGB.prototype.invert		= function()
 
 
 
-Utility.ColorPicker=function()
+Utility.ColorPicker=function(parent)
 {
 	this._hsv			= new Utility.ColorHSV(0,1,1);
 	this._rgb			= this._hsv.toRGB();
@@ -127,6 +141,9 @@ Utility.ColorPicker=function()
 	this._hueSlider		= {canvas:null,ctx:null,prerender: null};
 	this._aSlider		= {canvas:null,ctx:null,prerender: null};
 	this._picker		= {canvas:null,ctx:null,prerender: null};
+
+	if(parent)
+		this.create(parent);
 }
 
 Utility.ColorPicker.prototype.getHSV	= function()
@@ -137,9 +154,19 @@ Utility.ColorPicker.prototype.getRGB	= function()
 {
 	return this._rgb;
 }
-Utility.ColorPicker.prototype.getHexString = function()
+Utility.ColorPicker.prototype.getAlpha	= function()
+{
+	return this._alpha;
+}
+Utility.ColorPicker.prototype.toHexString = function()
 {
 	return this._rgb.toHexString();
+}
+Utility.ColorPicker.prototype.toString = function()
+{
+	if(_alpha==1)
+		return "rgb("+_rgb.r+","+_rgb.g+","+_rgb.b+")";
+	return "rgba("+_rgb.r+","+_rgb.g+","+_rgb.b+","+_alpha+")";
 }
 
 Utility.ColorPicker.prototype.create	= function(parent)
@@ -231,7 +258,7 @@ Utility.ColorPicker.prototype.prerenderPicker	= function()
 {
 	var ctx = this._picker.prerender.getContext('2d');
 	var r,g,b;
-	var cols = this._hsv.getCleanRGB();
+	var cols = this._hsv.toCleanRGB();
 	r=cols.r;g=cols.g;b=cols.b;
 	if(r==g && r==b)
 	{
@@ -337,7 +364,7 @@ Utility.ColorPicker.prototype.renderHueSlider		= function()
 	
 	var y = this._hsv.h*256;
 	ctx.lineWidth = 1;
-	ctx.strokeStyle="RGB(0,0,0)";
+	ctx.strokeStyle="rgb(0,0,0)";
 	ctx.beginPath();
 		ctx.moveTo(0,y-1.5);
 		ctx.lineTo(16,y-1.5);
@@ -389,30 +416,79 @@ Utility.ColorPicker.prototype.selectOnAlphaSlider= function(x)
 	this.renderAlphaSlider();
 };
 
-Utility.ColorPicker.prototype.setRGB		= function(r,g,b)
+Utility.ColorPicker.prototype.setRGB		= function(r,g,b,t)
 {
 	this._rgb.r	= r?r:0;
 	this._rgb.g	= g?g:0;
 	this._rgb.b	= b?b:0;
 	this._hsv 	= this._rgb.toHSV();
 	
+	if(t)
+		this.onChange();
+	this.prerenderPicker();
+	this.renderPicker();
+	this.renderHueSlider();
+
+	return this._rgb;
+}
+Utility.ColorPicker.prototype.setRGBA		= function(r,g,b,a,t)
+{
+	this._rgb.r	= r?r:0;
+	this._rgb.g	= g?g:0;
+	this._rgb.b	= b?b:0;
+	this._hsv 	= this._rgb.toHSV();
+	this._alpha	= a;
+	
+	if(t)
+		this.onChange();
 	this.prerenderPicker();
 	this.renderPicker();
 	this.renderHueSlider();
 	this.renderAlphaSlider();
+
+	return this._rgb;
 }
 
-Utility.ColorPicker.prototype.setHSV		= function(h,s,v)
+Utility.ColorPicker.prototype.setHSV		= function(h,s,v,t)
 {
 	this._hsv.h = h?h:0;
 	this._hsv.s = s?s:0;
 	this._hsv.v	= v?v:0;
 	this._rgb	= this._hsv.toRGB();
 	
+	if(t)
+		this.onChange();
+	this.prerenderPicker();
+	this.renderPicker();
+	this.renderHueSlider();
+
+	return this._hsv;
+}
+Utility.ColorPicker.prototype.setHSVA		= function(h,s,v,a,t)
+{
+	this._hsv.h = h?h:0;
+	this._hsv.s = s?s:0;
+	this._hsv.v	= v?v:0;
+	this._rgb	= this._hsv.toRGB();
+	this._alpha	= a;
+	
+	if(t)
+		this.onChange();
 	this.prerenderPicker();
 	this.renderPicker();
 	this.renderHueSlider();
 	this.renderAlphaSlider();
+
+	return this._hsv;
+}
+Utility.ColorPicker.prototype.setAlpha		= function(a)
+{
+	this._alpha = a;
+	
+	this.onChange();
+	this.renderAlphaSlider();
+
+	return this._alpha;
 }
 
 Utility.ColorPicker.prototype.onAfterChange	= function(){};
