@@ -1,6 +1,5 @@
 ======================================================================
 #JavaScript Color Picker Utility
-======================================================================
 
 ##Description:
 
@@ -19,7 +18,7 @@ Set the ColorPicker's onChange event to catch when the color is changed.
 **	ColorRGB is an RGB color variable with the members r, g, b
 **	ColorHSV is an HSV color variable with the members h, s, v
 
-#---------------------------------------------
+#
 - ColorPickerRef.create(parent)
 >	Create or recreate the color picker as a child of parent.
 >	Will delete the old one if it already exists.
@@ -71,18 +70,20 @@ Set the ColorPicker's onChange event to catch when the color is changed.
 >	Returns a number that is the set alpha. [0.0-1.0]
 >	[trigger] is an optional parameter that if set to true will trigger onChange
 
-#---------------------------------------------
--ColorHSV.toRGB()
+#
+
+- ColorHSV.toRGB()
 >	Returns an RGB color that represents the HSV color.
 
--ColorHSV.toCleanRGB()
+- ColorHSV.toCleanRGB()
 >	Returns an RGB color that represents the current Hue with max Saturation and Value.
 
--ColorHSV.toString()
+- ColorHSV.toString()
 >	Returns a string that represents the HSV values.
 >		ex: "hsv(1,1,1)"
 
-#---------------------------------------------
+#
+
 - ColorRGB.toHSV()
 >	Returns an HSV color that represents the RGB color.
 
@@ -116,11 +117,10 @@ ______________________________________________________________________
 
 This software is provided as-is without warranty. It is free for use and distribution so long as the ownership statement within the source remains attached and unaltered from the below text:
 
-```/**************************************
+```
 	Color Picker Utility
 Created By:	Erekose Craft
 Website:	airakose.com
 This software is free for use and distribution as long as this statement remains unaltered within the source.
-**************************************/
 ```
 ______________________________________________________________________
