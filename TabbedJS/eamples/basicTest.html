@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+	<head>
+		<title>Tabs Test</title>
+		<style type="text/CSS">
+		body,html,div,span{box-sizing:border-box;margin:0px;padding:0px;border:0px;}
+		.tab{
+			display:inline-block;
+			width:100px;
+			text-align:center;
+			font-size:14px;
+			padding:10px;
+			padding-bottom:2px;
+			margin-left:10px;
+			background:#999;
+		}
+		.tab.active{
+			display:inline-block;
+			background:#DDD;
+			width:100px;
+		}
+		.tabContent.active{width:100%;display:block;background:#DDD;padding:10px;border-radius:10px;}
+		</style>
+		<script type="text/JavaScript" src="../lib/tabbed.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="tab active" data-tabgroup="main" data-tabname="home">Home</div>
+		<div class="tabContent active" data-tabgroup="main" data-tabname="home">Home Content</div>
+		<div class="tabContent" data-tabgroup="main" data-tabname="next">Next Content</div>
+		<div class="tab" data-tabgroup="main" data-tabname="next">Next</div>
+	</body>
+</html>
