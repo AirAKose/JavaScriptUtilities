@@ -84,22 +84,22 @@ Set the ColorPicker's onChange event to catch when the color is changed.
 		>ex: "hsv(1,1,1)"
 
 #----------------
--ColorRGB.toHSV()
-	>Returns an HSV color that represents the RGB color.
+- ColorRGB.toHSV()
+>	Returns an HSV color that represents the RGB color.
 
--ColorRGB.toMaxSaturation()
-	>Returns an RGB color that represents a fully saturated version of the current color.
+- ColorRGB.toMaxSaturation()
+>	Returns an RGB color that represents a fully saturated version of the current color.
 
--ColorRGB.invert()
-	>Returns an RGB color that is inverted from the current RGB values.
+- ColorRGB.invert()
+>	Returns an RGB color that is inverted from the current RGB values.
 
--ColorRGB.toHexString()
-	>Returns a string that represents the RGB values in hexadecimal.
-		>ex: "0f0f0f"
+- ColorRGB.toHexString()
+>	Returns a string that represents the RGB values in hexadecimal.
+>		ex: "0f0f0f"
 
--ColorRGB.toString()
-	>Returns a string that represents the RGB values.
-		>ex: "rgb(255,255,255)"
+- ColorRGB.toString()
+>	Returns a string that represents the RGB values.
+>		ex: "rgb(255,255,255)"
 
 ______________________________________________________________________
 
