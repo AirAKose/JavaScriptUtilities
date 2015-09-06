@@ -1,15 +1,15 @@
 ======================================================================
-		JavaScript Color Picker Utility
+#JavaScript Color Picker Utility
     --------------------------------------------------------------
 ======================================================================
 
-	Description:
+##Description:
 
 This utility adds a functioning square color picker to the page with a saturation+brightness box, a hue slider, and an alpha slider.
 
 ______________________________________________________________________
 
-	Use:
+##Use:
 
 In JavaScript, create a color picker with "new Utility.ColorPicker([parent])" where the optional [parent] is a javascript reference to the element on the page where you want to add the color picker.
 
@@ -20,7 +20,7 @@ Set the ColorPicker's onChange event to catch when the color is changed.
 **	ColorRGB is an RGB color variable with the members r, g, b
 **	ColorHSV is an HSV color variable with the members h, s, v
 
---------------
+#--------------
 ColorPickerRef.create(parent)
 	Create or recreate the color picker as a child of parent.
 	Will delete the old one if it already exists.
@@ -72,7 +72,7 @@ ColorPickerRef.setAlpha(a,[trigger])
 	Returns a number that is the set alpha. [0.0-1.0]
 	[trigger] is an optional parameter that if set to true will trigger onChange
 
-----------------
+#----------------
 ColorHSV.toRGB()
 	Returns an RGB color that represents the HSV color.
 
@@ -83,7 +83,7 @@ ColorHSV.toString()
 	Returns a string that represents the HSV values.
 		ex: "hsv(1,1,1)"
 
-----------------
+#----------------
 ColorRGB.toHSV()
 	Returns an HSV color that represents the RGB color.
 
@@ -103,7 +103,7 @@ ColorRGB.toString()
 
 ______________________________________________________________________
 
-	Requirements:
+##Requirements:
 
 Other libraries:	NONE
 Browser:		Any browser that supports HTML5 and the Canvas element.
@@ -112,7 +112,7 @@ Browser:		Any browser that supports HTML5 and the Canvas element.
 
 ______________________________________________________________________
 
-	License:
+##License:
 
 This software is provided as-is without warranty. It is free for use and distribution so long as the ownership statement within the source remains attached and unaltered from the below text:
 
